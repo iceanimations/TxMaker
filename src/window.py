@@ -7,6 +7,11 @@ from PyQt4 import uic
 import utilities as utils
 import multiprocessing as mp
 
+def makeTx(fileName):
+    command = r"R:\Pipe_Repo\Users\Qurban\applications\maketx\maketx.exe"
+    args = " -u --oiio \"%s\""%fileName
+    utils.subprocess.call(command + args)
+
 Form, Base = uic.loadUiType(utils.uiFile())
 class TxMaker(Form, Base):
     '''
@@ -149,31 +154,9 @@ class TxMaker(Form, Base):
             done = 0
             self.makingLabel.show()
             self.makingLabel.repaint()
-            while newTex:
-                for i in range(cpus):
-                    if not newTex:
-                        break
-                    fileName = newTex[0]
-                    if utils.extension(fileName) not in self.imageFormats:
-                        continue
-                    process = mp.Process(target=self.makeTx,
-                                               args=(fileName,))
-                    process.start()
-                    newTex.remove(fileName)
-                    done = total - len(newTex)
-                    self.makingLabel.setText('   Making "tx" textures '+
-                                             str(done) +" of "+ str(total))
-                    print str(done) +" of "+ str(total)
-                    self.makingLabel.repaint()
-                try:
-                    process.join()
-                except: pass
+            pool = mp.Pool(processes=cpus)
+            pool.map(makeTx, newTex)
             self.makingLabel.hide()
-                    
-    def makeTx(self, fileName):
-        command = r"R:\Pipe_Repo\Users\Qurban\applications\maketx\maketx.exe"
-        utils.subprocess.call(command +" -u --oiio \"%s\""%fileName)
-                    
     
     def closeWindow(self):
         self.close()

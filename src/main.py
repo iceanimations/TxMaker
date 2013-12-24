@@ -4,8 +4,8 @@ Created on Dec 19, 2013
 @author: qurban.ali
 '''
 import site
-site.addsitedir(r"R:/Pipe_Repo/Users/Qurban/mayaize")
-import mayaize2013
+#site.addsitedir(r"R:/Pipe_Repo/Users/Qurban/mayaize")
+#import mayaize2013
 site.addsitedir(r"R:\Python_Scripts")
 from PyQt4.QtGui import QApplication, QStyleFactory
 import sys
