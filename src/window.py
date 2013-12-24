@@ -11,6 +11,7 @@ def makeTx(fileName):
     command = r"R:\Pipe_Repo\Users\Qurban\applications\maketx\maketx.exe"
     args = " -u --oiio \"%s\""%fileName
     utils.subprocess.call(command + args)
+    return fileName
 
 Form, Base = uic.loadUiType(utils.uiFile())
 class TxMaker(Form, Base):
@@ -155,7 +156,20 @@ class TxMaker(Form, Base):
             self.makingLabel.show()
             self.makingLabel.repaint()
             pool = mp.Pool(processes=cpus)
-            pool.map(makeTx, newTex)
+            it = pool.imap_unordered(makeTx, newTex)
+            donePaths = []
+            while 1:
+                try:
+                    donePaths.append(it.next(timeout=0.001))
+                    done = len(donePaths)
+                    self.makingLabel.setText("making \"tx\" textures: "+
+                                             str(done) +" of "+ str(total))
+                    self.makingLabel.repaint()
+                except mp.TimeoutError:
+                    pass
+                except StopIteration:
+                    break                    
+                qApp.processEvents()
             self.makingLabel.hide()
     
     def closeWindow(self):
