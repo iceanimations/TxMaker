@@ -12,6 +12,12 @@ import sys
 import window
 
 if __name__ == "__main__":
+    
+    # update the database, how many times this app is used
+    site.addsitedir(r'r:/pipe_repo/users/qurban')
+    import appUsageApp
+    appUsageApp.updateDatabase('TxMaker')
+    
     app = QApplication(sys.argv)
     app.setStyle(QStyleFactory.create('plastique'))
     win = window.TxMaker()

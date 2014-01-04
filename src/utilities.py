@@ -6,12 +6,14 @@ import os
 import sys
 import subprocess
 import os.path as osp
+import webbrowser as wb
 import multiprocessing as mp
 
 sPath = sys.modules[__name__].__file__
 rPath = osp.dirname(osp.dirname(sPath))
-uPath = osp.join(rPath, osp.sep.join([rPath, 'ui']))
-iPath = osp.join(rPath, osp.sep.join([rPath, 'icons']))
+uPath = osp.join(rPath, 'ui')
+iPath = osp.join(rPath, 'icons')
+dPath = osp.join(rPath, "docs")
 
 def uiFile():
     '''returns path to main ui file'''
@@ -34,6 +36,9 @@ def isfile(path):
 def extension(path):
     path = str(path)
     return osp.splitext(path)[-1]
+
+def openURL(url):
+    wb.open_new_tab(url)
 
 def paths(path):
     path = str(path)

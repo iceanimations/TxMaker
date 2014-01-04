@@ -10,7 +10,7 @@ import multiprocessing as mp
 def makeTx(fileName):
     command = r"R:\Pipe_Repo\Users\Qurban\applications\maketx\maketx.exe"
     args = " -u --oiio \"%s\""%fileName
-    utils.subprocess.call(command + args)
+    utils.subprocess.call(command + args, shell = True)
     return fileName
 
 Form, Base = uic.loadUiType(utils.uiFile())
@@ -25,6 +25,8 @@ class TxMaker(Form, Base):
         #pre-conditions
         self.waitLabel.hide()
         self.makingLabel.hide()
+        self.folderButton.hide()
+        self.sceneButton.hide()
         self.mayaFormats = ['.ma', '.mb', '.MB', '.MA']
         self.imageFormats = utils.imageFormats
         icon = QIcon(utils.join(utils.iPath, 'txm.png'))
@@ -39,11 +41,15 @@ class TxMaker(Form, Base):
         self.createButton.clicked.connect(self.createTx)
         self.closeButton.clicked.connect(self.closeWindow)
         self.clearButton.clicked.connect(self.clearAll)
+        self.tutorialAction.triggered.connect(self.showTutorial)
         
         # member variables
         self.folderTextures = True
         self.textureButtons = []
         self.textures = []
+        
+    def showTutorial(self):
+        utils.openURL(utils.join(utils.dPath, "tutorial.html"))
         
     def handleFolderSceneButtons(self):
         self.folderTextures = self.folderButton.isChecked()
@@ -109,7 +115,7 @@ class TxMaker(Form, Base):
             tex = self.sceneTextures()
         if tex is None: self.waitLabel.hide(); return
         if not tex:
-            self.msgBox(msg = "No textures found in the scene")
+            self.msgBox(msg = "No textures found")
             self.waitLabel.hide()
             return
         self.clearWindow()
@@ -135,13 +141,16 @@ class TxMaker(Form, Base):
         
     def clearAll(self):
         self.folderButton.setChecked(True)
-        self.quickMakeButton.setChecked(False)
+        self.quickMakeButton.setChecked(True)
         self.pathBox.clear()
         self.folderTextures = True
+        self.totalTexturesLabel.setText("Total Textures: ")
         self.clearWindow()
     
     def createTx(self):
         if self.textures:
+            self.createButton.setEnabled(False)
+            self.clearButton.setEnabled(False)
             newTex = []
             if not self.selectAllButton.isChecked():
                 for btn in self.textureButtons:
@@ -162,7 +171,7 @@ class TxMaker(Form, Base):
                 try:
                     donePaths.append(it.next(timeout=0.001))
                     done = len(donePaths)
-                    self.makingLabel.setText("making \"tx\" textures: "+
+                    self.makingLabel.setText("Making \"tx\" textures: "+
                                              str(done) +" of "+ str(total))
                     self.makingLabel.repaint()
                 except mp.TimeoutError:
@@ -170,7 +179,10 @@ class TxMaker(Form, Base):
                 except StopIteration:
                     break                    
                 qApp.processEvents()
+            self.makingLabel.setText("Making \"tx\" textures:")
             self.makingLabel.hide()
+            self.createButton.setEnabled(True)
+            self.clearButton.setEnabled(True)
     
     def closeWindow(self):
         self.close()

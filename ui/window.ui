@@ -202,16 +202,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="makingLabel">
-        <property name="styleSheet">
-         <string notr="true">color: green</string>
-        </property>
-        <property name="text">
-         <string>Making &quot;tx&quot; textures:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -223,6 +213,16 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="makingLabel">
+        <property name="styleSheet">
+         <string notr="true">color: green</string>
+        </property>
+        <property name="text">
+         <string>Making &quot;tx&quot; textures:</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -305,10 +305,8 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionTxMaker_Tutorial"/>
-    <addaction name="actionGeneral_Help"/>
+    <addaction name="tutorialAction"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuHelp"/>
   </widget>
@@ -318,9 +316,9 @@
     <string>TxMaker Tutorial</string>
    </property>
   </action>
-  <action name="actionGeneral_Help">
+  <action name="tutorialAction">
    <property name="text">
-    <string>General Help</string>
+    <string>Tutorial and help</string>
    </property>
   </action>
   <action name="actionAbout">
