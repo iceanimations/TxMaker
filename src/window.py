@@ -7,11 +7,8 @@ from PyQt4 import uic
 import utilities as utils
 import multiprocessing as mp
 
-def makeTx(fileName):
-    command = r"R:\Pipe_Repo\Users\Qurban\applications\maketx\maketx.exe"
-    args = " -u --oiio \"%s\""%fileName
-    utils.subprocess.call(command + args, shell = True)
-    return fileName
+def makeTx(command):
+    utils.subprocess.call(command, shell = True)
 
 Form, Base = uic.loadUiType(utils.uiFile())
 class TxMaker(Form, Base):
@@ -148,6 +145,11 @@ class TxMaker(Form, Base):
         self.clearWindow()
     
     def createTx(self):
+        makerPath = r"C:\solidangle\mtoadeploy\2014\bin\maketx.exe"
+        if not utils.exists(makerPath):
+            makerPath = r"C:\solidangle\mtoadeploy\2013\bin\maketx.exe"
+            if not utils.exists(makerPath):
+                makerPath = r"R:\Pipe_Repo\Users\Qurban\applications\maketx\maketx.exe"
         if self.textures:
             self.createButton.setEnabled(False)
             self.clearButton.setEnabled(False)
@@ -155,8 +157,10 @@ class TxMaker(Form, Base):
             if not self.selectAllButton.isChecked():
                 for btn in self.textureButtons:
                     if btn.isChecked():
-                        newTex.append(str(btn.text()))
-            else: newTex[:] = self.textures
+                        newTex.append(makerPath+" -u --oiio \"%s\""%str(btn.text()))
+            else:
+                for tex in self.textures:
+                    newTex.append(makerPath+" -u --oiio \"%s\""%tex)
             cpus = mp.cpu_count()
             if not self.quickMakeButton.isChecked():
                 cpus = int(cpus/2)
@@ -173,11 +177,10 @@ class TxMaker(Form, Base):
                     done = len(donePaths)
                     self.makingLabel.setText("Making \"tx\" textures: "+
                                              str(done) +" of "+ str(total))
-                    self.makingLabel.repaint()
                 except mp.TimeoutError:
                     pass
                 except StopIteration:
-                    break                    
+                    break
                 qApp.processEvents()
             self.makingLabel.setText("Making \"tx\" textures:")
             self.makingLabel.hide()
@@ -207,9 +210,9 @@ class TxMaker(Form, Base):
         '''
         dispalys the warnings
         @params:
-                args: a dictionary containing the following sequence of variables
-                {'msg': 'msg to be displayed'[, 'ques': 'question to be asked'],
-                'btns': QMessageBox.btn1 | QMessageBox.btn2 | ....}
+            args: a dictionary containing the following sequence of variables
+            {'msg': 'msg to be displayed'[, 'ques': 'question to be asked'],
+            'btns': QMessageBox.btn1 | QMessageBox.btn2 | ....}
         '''
         if msg:
             mBox = QMessageBox(self)

@@ -9,7 +9,7 @@ import os.path as osp
 import webbrowser as wb
 import multiprocessing as mp
 
-sPath = sys.modules[__name__].__file__
+sPath = __file__
 rPath = osp.dirname(osp.dirname(sPath))
 uPath = osp.join(rPath, 'ui')
 iPath = osp.join(rPath, 'icons')
