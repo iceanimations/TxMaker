@@ -1,1 +1,1 @@
-"R:\Pipe_Repo\Users\Qurban\Python26\pythonw.exe"  D:\My\Tasks\workSpace\MakeTx\src\main.py
+R:\Pipe_Repo\Users\Qurban\applications\Python26\pythonw.exe D:\My\Tasks\workSpace\TxMaker\main.py

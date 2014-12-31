@@ -19,60 +19,27 @@
      <number>2</number>
     </property>
     <item>
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
+     <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Textures Source</string>
+       <string>Textures</string>
       </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QRadioButton" name="folderButton">
-           <property name="toolTip">
-            <string>Load texture files from folder</string>
-           </property>
-           <property name="text">
-            <string>Folder</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="sceneButton">
-           <property name="toolTip">
-            <string>Load textures from scene file</string>
-           </property>
-           <property name="text">
-            <string>Scene</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QCheckBox" name="selectAllButton">
+           <property name="toolTip">
+            <string>Select all listed textures</string>
+           </property>
            <property name="text">
-            <string>Path: </string>
+            <string>Select All</string>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="pathBox"/>
          </item>
          <item>
           <widget class="QToolButton" name="browseButton">
            <property name="toolTip">
-            <string>Choose file</string>
+            <string>Select files</string>
            </property>
            <property name="text">
             <string>...</string>
@@ -80,38 +47,6 @@
           </widget>
          </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QLabel" name="waitLabel">
-         <property name="styleSheet">
-          <string notr="true">color: green</string>
-         </property>
-         <property name="text">
-          <string>Please wait... Fetching Textures</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="title">
-       <string>Textures</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QCheckBox" name="selectAllButton">
-         <property name="toolTip">
-          <string>Select all listed textures</string>
-         </property>
-         <property name="text">
-          <string>Select All</string>
-         </property>
-        </widget>
        </item>
        <item>
         <widget class="QScrollArea" name="scrollArea">
@@ -129,24 +64,15 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>353</width>
-            <height>254</height>
+            <width>355</width>
+            <height>348</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <property name="spacing">
             <number>0</number>
            </property>
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
+           <property name="margin">
             <number>0</number>
            </property>
            <item>
@@ -298,7 +224,7 @@
      <x>0</x>
      <y>0</y>
      <width>397</width>
-     <height>18</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuHelp">
