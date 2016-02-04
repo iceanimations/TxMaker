@@ -5,7 +5,8 @@ Created on Dec 19, 2013
 '''
 import site
 site.addsitedir('r:/python_scripts/maya2015/pyqt')
-site.addsitedir(r'r:/pipe_repo/users/qurban/utilities')
+site.addsitedir(r'R:\Python_Scripts\plugins\utilities')
+site.addsitedir('r:/pipe_repo/projects/tactic')
 from PyQt4.QtGui import QApplication, QStyleFactory
 import sys
 import src.window as window
